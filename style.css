@@ -1,0 +1,44 @@
+* {
+    /* border: 1px solid red; */
+}
+
+html,
+body {
+    margin: 0;
+}
+
+body {
+    pointer-events: none;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: auto;
+}
+
+.title {
+    font-size: 3.5em;
+    text-align: left;
+    pointer-events: none;
+    background: black;
+    color: white;
+    width: 5.5em;
+    margin: 0 auto;
+    font-family: Helvetica, sans-serif;
+    padding: 0.5em;
+}
+
+.container {
+    display: flex;
+}
+
+.canvas-wrapper {
+    flex: 8;
+}
+
+.knobs {
+    flex: 4;
+}
