@@ -1,5 +1,5 @@
 * {
-    /* border: 1px solid red; */
+    border: 1px solid red !important;
 }
 
 html,
@@ -33,12 +33,39 @@ canvas {
 
 .container {
     display: flex;
+    height: 100vh;
 }
 
 .canvas-wrapper {
     flex: 8;
 }
 
+
 .knobs {
-    flex: 4;
+    flex: 2;
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.sliders {
+    flex: 9;
+    display: flex;
+}
+
+.max-size-wrapper,
+.min-size-wrapper {
+    flex: 1;
+    
+}
+
+.max-size-wrapper input,
+.min-size-wrapper input {
+    /* transform: rotate(-90deg); */
+    -webkit-appearance: slider-vertical;
+    height: 100%;
+}
+
+.btn {
+    flex: 1;
 }

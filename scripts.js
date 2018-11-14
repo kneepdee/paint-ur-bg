@@ -1,10 +1,21 @@
 const canvas = document.querySelector('#draw');
 const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-ctx.strokeStyle = '#BADA55';
+const canvasWrapper = document.querySelector('.canvas-wrapper');
+const maxSizeSlider = document.querySelector('#max-size');
+const minSizeSlider = document.querySelector('#min-size');
+const clearCanvas = document.querySelector('.clear-canvas');
+
+// console.log('canvasWrapper width: ' + canvasWrapper.offsetWidth);
+// console.log('canvasWrapper height: ' + canvasWrapper.offsetHeight);
+
+// console.log('knobs width: ' + knobs.clientWidth);
+// console.log('knobs height: ' + knobs.clientHeight);
+
+canvas.width = canvasWrapper.offsetWidth;
+canvas.height = canvasWrapper.offsetHeight;
 ctx.lineJoin = 'round';
 ctx.lineCap = 'round';
+// ctx.lineWidth = +minSizeSlider.value + 1;
 // ctx.globalCompositeOperation = 'luminosity';
 
 let isDrawing = false;
@@ -19,17 +30,29 @@ function getRandomInt(max) {
 
 function draw(e) {
     if (!isDrawing) return // stops the fn from running when they are not mouse
-    console.log(e);
     // console.log(e.touches[0].clientX);
-    console.log('touches' in e);
     hue = getRandomInt(360);
     ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
     hue > 360 ? hue = 0 : hue;
-    // ctx.lineWidth = hue;
-    if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
-        direction = !direction;
+
+    if ((+minSizeSlider.value > +maxSizeSlider.value) || (+minSizeSlider.value === +maxSizeSlider.value)) {
+        ctx.lineWidth = +maxSizeSlider.value;
+        maxSizeSlider.value = minSizeSlider.value;
+    } else {
+        if (ctx.lineWidth === +maxSizeSlider.value || ctx.lineWidth === +minSizeSlider.value) {
+            direction = !direction;
+        }
+        console.log(direction);
+
+        direction === true ? ctx.lineWidth++ : ctx.lineWidth--;
     }
-    direction === true ? ctx.lineWidth++ : ctx.lineWidth--;
+    console.log(ctx.lineWidth);
+    // if (ctx.lineWidth === +maxSizeSlider.value || ctx.lineWidth === +minSizeSlider.value) {
+    //     direction = !direction;
+    // }
+    // console.log(direction);
+
+    // direction === true ? ctx.lineWidth++ : ctx.lineWidth--;
 
     ctx.beginPath();
     // start from
@@ -55,6 +78,7 @@ function draw(e) {
 
 canvas.addEventListener('touchstart', (e) => {
     isDrawing = true;
+    ctx.lineWidth = +minSizeSlider.value + 1;
     if ('touches' in e) {
         [lastX, lastY] = [e.touches[0].clientX, e.touches[0].clientY];
     } else {
@@ -70,12 +94,20 @@ canvas.addEventListener('mouseout', () => isDrawing = false);
 
 canvas.addEventListener('mousedown', (e) => {
     isDrawing = true;
+    console.log('mousedown');
+    ctx.lineWidth = +minSizeSlider.value + 1;
     [lastX, lastY] = [e.offsetX, e.offsetY]; // destructuring
 });
 
 canvas.addEventListener('mousemove', draw);
 canvas.addEventListener('mouseup', () => isDrawing = false);
 canvas.addEventListener('mouseout', () => isDrawing = false);
+
+// reset canvas
+clearCanvas.addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // minSizeSlider.value = +minSizeSlider.value + 30;
+})
 
 // Prevent scrolling when touching the canvas
 document.body.addEventListener("touchstart", function (e) {
@@ -98,18 +130,18 @@ document.body.addEventListener("touchmove", function (e) {
 
 // positioning div element;
 
-const body = document.querySelector('body');
-const bodyHeight = body.clientHeight;
+// const body = document.querySelector('body');
+// const bodyHeight = body.clientHeight;
 
-const textDiv = document.querySelector('.title');
-const textDivHeight = textDiv.clientHeight;
+// const textDiv = document.querySelector('.title');
+// const textDivHeight = textDiv.clientHeight;
 
-console.log(bodyHeight);
+// console.log(bodyHeight);
 
-console.log(textDivHeight);
+// console.log(textDivHeight);
 
-const margin = (bodyHeight - textDivHeight * 7) / 2;
+// const margin = (bodyHeight - textDivHeight * 7) / 2;
 
-console.log(margin);
+// console.log(margin);
 
-textDiv.style.marginTop = `${margin}px`;
+// textDiv.style.marginTop = `${margin}px`;
