@@ -7,8 +7,10 @@ body {
     margin: 0;
 }
 
+
 body {
     pointer-events: none;
+    font-family: monospace;
 }
 
 canvas {
@@ -31,21 +33,15 @@ canvas {
     padding: 0.5em;
 }
 
+/* MAIN LAYOUT */
+
 .container {
     display: flex;
     height: 100vh;
 }
 
 .canvas-wrapper {
-    flex: 8;
-}
-
-
-.knobs {
-    flex: 2;
-    pointer-events: auto;
-    display: flex;
-    flex-direction: column;
+    flex: 12;
 }
 
 .sliders {
@@ -53,19 +49,95 @@ canvas {
     display: flex;
 }
 
+.knobs {
+    flex: 2;
+    /* ENABLE MOUSE FOR INPUTS */
+    pointer-events: auto; 
+    display: flex;
+    flex-direction: column;
+}
+
+/* SILDERS, LABELS, OUTPUTS */
+
 .max-size-wrapper,
 .min-size-wrapper {
     flex: 1;
-    
+    text-align: center;
+    display: flex;
+    flex-direction: column;
 }
+
+.label-wrapper {
+    flex: 2;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.label-wrapper label {
+    font-size: 2em;
+    font-weight: 700;
+    text-align: left;
+    margin-left: 1em;
+}
+
+.output-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.output-wrapper output {
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+.input-wrapper {
+    flex: 9;
+}
+
+/* ACTUAL SLIDERS */
 
 .max-size-wrapper input,
 .min-size-wrapper input {
-    /* transform: rotate(-90deg); */
     -webkit-appearance: slider-vertical;
     height: 100%;
 }
 
-.btn {
+/* LABELS */
+
+.max-size-wrapper label,
+.min-size-wrapper label {
+    text-transform: uppercase;
+}
+
+/* CLEAR CANVAS BTN */
+
+.btn-wrapper {
     flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-wrapper button {
+    transition: all 0.1s;
+    height: 60%;
+    width: 80%;
+    border-radius: 10px;
+    font-size: 1.75em;
+    color: #FFF;
+    background-color: #E74C3C;
+	border-bottom: 5px solid #BD3E31;
+    text-shadow: 0px -2px #BD3E31;
+    position: relative;
+    box-shadow: 0px 7px 5px 0px rgba(122,0,0,1);
+    text-transform: uppercase;
+}
+
+.btn-wrapper button:active {
+    transform: translate(0px,5px);
+    border-bottom: 1px solid;
+    box-shadow: 0px 1px 1px 0px rgba(122,0,0,1);
 }

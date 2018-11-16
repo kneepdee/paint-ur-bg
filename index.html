@@ -22,23 +22,45 @@
         <div class="knobs">
             <div class="sliders">
                 <div class="max-size-wrapper">
-                    <input orient="vertical" type="range" id="max-size" name="max-size" min="2" max="200" value="100" step="1">
-                    <!-- <label for="max-size">Brush max size (2-200)</label> -->
+
+                    <div class="label-wrapper"><label for="max-size">brush<br>max<br>size</label></div>
+                    <div class="output-wrapper"><output name="maxSizeValueDisplayName" id="maxSizeValueDisplayId">100</output></div>
+                    <div class="input-wrapper"><input orient="vertical" type="range" id="maxSize" name="max-size" min="1"
+                            max="200" value="100" step="1" oninput="maxSizeValueDisplayId.value = maxSize.value"></div>
                 </div>
                 <div class="min-size-wrapper">
-                    <input orient="vertical" type="range" id="min-size" name="min-size" min="1" max="199" value="50" step="1">
-                    <!-- <label for="min-size">Brush min size (1-199)</label> -->
+                    <div class="label-wrapper">
+                        <label for="min-size">brush<br>min<br>size</label>
+                    </div>
+                    <div class="output-wrapper">
+                        <output name="minSizeValueDisplayName" id="minSizeValueDisplayId">100</output>
+                    </div>
+                    <div class="input-wrapper">
+                        <input orient="vertical" type="range" id="minSize" name="min-size" min="1" max="200" value="100"
+                            step="1" oninput="minSizeValueDisplayId.value = minSize.value">
+                    </div>
                 </div>
             </div>
-            <div class="btn">
-                <button class="clear-canvas">Clear Canvas</button>
+            <div class="btn-wrapper">
+                <button class="clear-canvas-btn">clear canvas</button>
             </div>
         </div>
 
     </div>
+
+
 
     <link rel="stylesheet" href="style.css">
     <script src="scripts.js"></script>
 </body>
 
 </html>
+
+<!-- TO DO -->
+
+<!-- press c to clear canvas -->
+
+<!-- bug: if max = 2, min = 1 then sometimes brush size will start increasing -->
+<!-- above also applies when max = 200 and min = 199 -->
+<!-- probably for each case -->
+<!-- when min is set higher than max then output element doesnt update, but value (via js) does -->
