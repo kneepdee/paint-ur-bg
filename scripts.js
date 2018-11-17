@@ -34,52 +34,60 @@ function draw(e) {
   // console.log(e.touches[0].clientX);
   hue = getRandomInt(360);
   ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+  ctx.beginPath();
+  ctx.moveTo(lastX, lastY);
+  if ('touches' in e) {
+    ctx.lineTo(e.touches[0].clientX, e.touches[0].clientY);
+  } else {
+    ctx.lineTo(e.offsetX, e.offsetY);
+  }
+  ctx.stroke();
+  if ('touches' in e) {
+    [lastX, lastY] = [e.touches[0].clientX, e.touches[0].clientY];
+  } else {
+    [lastX, lastY] = [e.offsetX, e.offsetY];
+  }
   // hue > 360 ? hue = 0 : hue;
   // console.log(hue);
 
-  if ((+minSizeSlider.value > +maxSizeSlider.value) || (+minSizeSlider.value === +maxSizeSlider.value)) {
-    ctx.lineWidth = +maxSizeSlider.value;
-    maxSizeSlider.value = minSizeSlider.value;
-    maxSizeOutput.innerHTML = maxSizeSlider.value;
-  } else {
-    if (ctx.lineWidth === +maxSizeSlider.value || ctx.lineWidth === +minSizeSlider.value) {
-      direction = !direction;
-    }
-    console.log(direction);
+  // if (+minSizeSlider.value === +maxSizeSlider.value) {
+  //   ctx.lineWidth = +minSizeSlider.value;
+  // }
+  if (ctx.lineWidth >= +maxSizeSlider.value || ctx.lineWidth <= +minSizeSlider.value) {
+    direction = !direction;
   }
+
+  if (direction) {
+    ctx.lineWidth++;
+  } else {
+    ctx.lineWidth--;
+  }
+
+  console.log(direction);
   console.log(ctx.lineWidth);
   direction === true ? ctx.lineWidth++ : ctx.lineWidth--;
-  // if (ctx.lineWidth === +maxSizeSlider.value || ctx.lineWidth === +minSizeSlider.value) {
+  // if (ctx.lineWidth === +maxSizeSlider.value || ctx.lineWidth === ++minSizeSlider.valueSizeSlider.value) {
   //     direction = !direction;
   // }
   // console.log(direction);
 
   // direction === true ? ctx.lineWidth++ : ctx.lineWidth--;
 
-  ctx.beginPath();
   // start from
-  ctx.moveTo(lastX, lastY);
   // go to
 
-  if ('touches' in e) {
-    ctx.lineTo(e.touches[0].clientX, e.touches[0].clientY);
-  } else {
-    ctx.lineTo(e.offsetX, e.offsetY);
-  }
 
-  ctx.stroke();
 
-  if ('touches' in e) {
-    [lastX, lastY] = [e.touches[0].clientX, e.touches[0].clientY];
-  } else {
-    [lastX, lastY] = [e.offsetX, e.offsetY];
-  }
 }
 
 // touch events
 
 canvas.addEventListener('touchstart', (e) => {
   isDrawing = true;
+  if (+maxSizeSlider.value < +minSizeSlider.value) {
+    maxSizeSlider.value = +minSizeSlider.value
+    maxSizeOutput.innerHTML = minSizeSlider.value;
+  }
   ctx.lineWidth = +minSizeSlider.value + 1;
   if ('touches' in e) {
     [lastX, lastY] = [e.touches[0].clientX, e.touches[0].clientY];
@@ -97,6 +105,10 @@ canvas.addEventListener('mouseout', () => isDrawing = false);
 canvas.addEventListener('mousedown', (e) => {
   isDrawing = true;
   console.log('mousedown');
+  if (+maxSizeSlider.value < +minSizeSlider.value) {
+    maxSizeSlider.value = +minSizeSlider.value
+    maxSizeOutput.innerHTML = minSizeSlider.value;
+  }
   ctx.lineWidth = +minSizeSlider.value + 1;
   [lastX, lastY] = [e.offsetX, e.offsetY]; // destructuring
 });

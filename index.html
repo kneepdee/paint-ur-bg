@@ -11,41 +11,31 @@
 
 <body>
     <div class="container">
-
-        <div class="canvas-wrapper">
-
-            <canvas id="draw" width="800" height="800"></canvas>
-            <!-- <div class="title">paint<br>yourself <br>a background</div> -->
-
-        </div>
-
         <div class="knobs">
             <div class="sliders">
                 <div class="max-size-wrapper">
 
-                    <div class="label-wrapper"><label for="max-size">brush<br>max<br>size</label></div>
+                    <div class="label-wrapper"><label for="max-size">brush max size</label></div>
+                    <div class="input-wrapper"><input class="slider" orient="vertical" type="range" id="maxSize" name="max-size"
+                            min="1" max="200" value="100" step="1" oninput="maxSizeValueDisplayId.value = maxSize.value"></div>
                     <div class="output-wrapper"><output name="maxSizeValueDisplayName" id="maxSizeValueDisplayId">100</output></div>
-                    <div class="input-wrapper"><input orient="vertical" type="range" id="maxSize" name="max-size" min="1"
-                            max="200" value="100" step="1" oninput="maxSizeValueDisplayId.value = maxSize.value"></div>
                 </div>
                 <div class="min-size-wrapper">
-                    <div class="label-wrapper">
-                        <label for="min-size">brush<br>min<br>size</label>
-                    </div>
-                    <div class="output-wrapper">
-                        <output name="minSizeValueDisplayName" id="minSizeValueDisplayId">100</output>
-                    </div>
-                    <div class="input-wrapper">
-                        <input orient="vertical" type="range" id="minSize" name="min-size" min="1" max="200" value="100"
-                            step="1" oninput="minSizeValueDisplayId.value = minSize.value">
-                    </div>
+                    <div class="label-wrapper"><label for="min-size">brush min size</label></div>
+                    <div class="input-wrapper"><input orient="vertical" type="range" id="minSize" name="min-size" min="1"
+                            max="200" value="100" step="1" oninput="minSizeValueDisplayId.value = minSize.value"></div>
+                    <div class="output-wrapper"><output name="minSizeValueDisplayName" id="minSizeValueDisplayId">100</output></div>
                 </div>
             </div>
+        </div>
+
+        <div class="canvas-wrapper">
+            <canvas id="draw" width="800" height="800"></canvas>
+            <h1 class="title">go crazy</h1>
             <div class="btn-wrapper">
                 <button class="clear-canvas-btn">clear canvas</button>
             </div>
         </div>
-
     </div>
 
 
@@ -62,5 +52,4 @@
 
 <!-- bug: if max = 2, min = 1 then sometimes brush size will start increasing -->
 <!-- above also applies when max = 200 and min = 199 -->
-<!-- probably for each case -->
-<!-- when min is set higher than max then output element doesnt update, but value (via js) does -->
+<!-- probably for each case where max > min by 1 -->
