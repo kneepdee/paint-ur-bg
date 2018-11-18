@@ -318,7 +318,7 @@ input[type=range]:focus::-ms-fill-upper {
     pointer-events: none;
     background: black;
     color: white;
-    font-family: Helvetica, sans-serif;
+    font-family: monospace;
     padding: 0.25em 0.5em 0.25em 0.5em;
     /* make text go under painting */
     z-index: -2;
@@ -353,6 +353,7 @@ input[type=range]:focus::-ms-fill-upper {
     display: flex;
     justify-content: space-between;
     border-bottom: 2px solid black;
+    text-transform: uppercase;
 }
 
 .label-wrapper {
@@ -375,15 +376,6 @@ input[type=range]:focus::-ms-fill-upper {
     justify-content: center;
     align-items: center;
 }
-
-/* .btn-wrapper {
-    text-align: right;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: end;
-    align-items: flex-end;
-} */
 
 .btn-wrapper {
     position: fixed;
